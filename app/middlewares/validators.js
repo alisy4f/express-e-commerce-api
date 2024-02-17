@@ -45,7 +45,7 @@ export const validateTokenRequest = (req, res, next) => {
   next();
 };
 
-export const validateLoginRequest = (req, res, next) => {
+export const validateLoginRequest = async (req, res, next) => {
   const authorization = req.headers['authorization'];
 
   if (!authorization) {
@@ -57,6 +57,15 @@ export const validateLoginRequest = (req, res, next) => {
 
   try {
     const jwtDecode = jwt.verify(token, secret);
+    const user = await prisma.user.findUnique({
+      where: {
+        email: jwtDecode.email 
+      }
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: "User not registered" });
+    }
     
     req.user = jwtDecode;
 

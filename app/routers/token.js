@@ -67,7 +67,6 @@ router.post("/token", validateTokenRequest, async (req, res) => {
       role_id: user.role_id,
       role: user.role.name
     },
-
     token,
   });
 });
