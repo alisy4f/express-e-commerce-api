@@ -148,10 +148,7 @@ router.post(
 
       if (
         isNaN(
-            data.cardNumber ||
-            data.cvv ||
-            data.expiryMonth ||
-            data.expiryYear
+          data.cardNumber || data.cvv || data.expiryMonth || data.expiryYear
         )
       ) {
         return res.status(400).json({ message: "Invalid data" });
@@ -172,7 +169,7 @@ router.post(
       if (order.status === "failed") {
         return res.status(400).json({ message: "Order payment failed" });
       }
-      
+
       const dataPayment = {
         amount: order.total,
         cardNumber: data.cardNumber,

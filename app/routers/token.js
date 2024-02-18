@@ -10,8 +10,8 @@ router.post("/token", validateTokenRequest, async (req, res) => {
   const user = await prisma.user.findUnique({
     where: { email: req.body.email },
     include: {
-        role: true
-    }
+      role: true,
+    },
   });
 
   if (!user) {
@@ -52,7 +52,7 @@ router.post("/token", validateTokenRequest, async (req, res) => {
     user_id: user.id,
     email: user.email,
     role_id: user.role_id,
-    role: user.role.name
+    role: user.role.name,
   };
 
   const expiresIn = 60 * 60 * 24 * 30;
@@ -65,7 +65,7 @@ router.post("/token", validateTokenRequest, async (req, res) => {
       user_id: user.id,
       email: user.email,
       role_id: user.role_id,
-      role: user.role.name
+      role: user.role.name,
     },
     token,
   });
